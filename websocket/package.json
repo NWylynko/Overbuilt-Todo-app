@@ -1,0 +1,22 @@
+{
+  "name": "websocket-testing",
+  "packageManager": "yarn@3.0.2",
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node ./src/index.ts",
+    "start": "node dist"
+  },
+  "dependencies": {
+    "@google-cloud/pubsub": "^2.18.1",
+    "dotenv": "^10.0.0",
+    "firebase-admin": "^9.12.0",
+    "source-map-support": "^0.5.20",
+    "uWebSockets.js": "uNetworking/uWebSockets.js#v20.0.0"
+  },
+  "devDependencies": {
+    "@tsconfig/node16": "^1.0.2",
+    "@types/node": "^16.10.5",
+    "ts-node": "^10.3.0",
+    "typescript": "^4.4.4"
+  }
+}
