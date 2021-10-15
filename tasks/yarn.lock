@@ -148,7 +148,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@google-cloud/firestore@npm:^4.5.0":
+"@google-cloud/firestore@npm:^4.15.1, @google-cloud/firestore@npm:^4.5.0":
   version: 4.15.1
   resolution: "@google-cloud/firestore@npm:4.15.1"
   dependencies:
@@ -478,10 +478,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:>=12.12.47, @types/node@npm:>=13.7.0, @types/node@npm:^16.10.5":
-  version: 16.10.5
-  resolution: "@types/node@npm:16.10.5"
-  checksum: 24ebd1199c4630ea59bdbd85416cfa7502ca4b5042ee9626e0fb4aa482530ba5832e6346a006993c2508d4b916347b0a558dd088f3fabc448d8e93110b9e2c1e
+"@types/node@npm:*, @types/node@npm:>=12.12.47, @types/node@npm:>=13.7.0, @types/node@npm:^16.11.0":
+  version: 16.11.0
+  resolution: "@types/node@npm:16.11.0"
+  checksum: 194ae80ec72f664e15e03c33f116be96aa1e85b167a19e31003c53ddfc36dabd65744e9a76c1d46b7ce2e5981d2ccb8e84a85c3ec9ac89f1471daaa885bdcfd0
   languageName: node
   linkType: hard
 
@@ -506,13 +506,6 @@ __metadata:
     "@types/mime": ^1
     "@types/node": "*"
   checksum: eaca858739483e3ded254cad7d7a679dc2c8b3f52c8bb0cd845b3b7eb1984bde0371fdcb0a5c83aa12e6daf61b6beb762545021f520f08a1fe882a3fa4ea5554
-  languageName: node
-  linkType: hard
-
-"@types/uuid@npm:^8.3.1":
-  version: 8.3.1
-  resolution: "@types/uuid@npm:8.3.1"
-  checksum: b41bdc5e86c6f0f1899306be10455636da0f2168c9489b869edd6837ddeb7c0e501b1ff7d857402462986bada2a379125743dd895fa801d03437cd632116a373
   languageName: node
   linkType: hard
 
@@ -1104,24 +1097,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"google-auth-library@npm:^7.0.0, google-auth-library@npm:^7.6.1":
-  version: 7.10.0
-  resolution: "google-auth-library@npm:7.10.0"
-  dependencies:
-    arrify: ^2.0.0
-    base64-js: ^1.3.0
-    ecdsa-sig-formatter: ^1.0.11
-    fast-text-encoding: ^1.0.0
-    gaxios: ^4.0.0
-    gcp-metadata: ^4.2.0
-    gtoken: ^5.0.4
-    jws: ^4.0.0
-    lru-cache: ^6.0.0
-  checksum: 0c564b87197aa1f513cde97ad993ce158ffc8319d3e8a12426e6b8a9c5b030724b0e1d6d4155a41de210f902180d25e156f95a71bb423633a3c30276b6dee203
-  languageName: node
-  linkType: hard
-
-"google-auth-library@npm:^7.9.2":
+"google-auth-library@npm:^7.0.0, google-auth-library@npm:^7.6.1, google-auth-library@npm:^7.9.2":
   version: 7.10.1
   resolution: "google-auth-library@npm:7.10.1"
   dependencies:
@@ -1231,25 +1207,6 @@ __metadata:
   checksum: 7cae75c8cd9a50f57dadd77482359f659eaebac0319dd9368bcd1714f55e65badd6929ca58569da2b6494ef13fdd5598cd700b1eba23f8b79c5f19d195a3ecf7
   languageName: node
   linkType: hard
-
-"ingress@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "ingress@workspace:."
-  dependencies:
-    "@google-cloud/pubsub": ^2.18.1
-    "@tsconfig/node16": ^1.0.2
-    "@types/node": ^16.10.5
-    "@types/uuid": ^8.3.1
-    dotenv: ^10.0.0
-    fastify: ^3.22.0
-    fastify-cors: ^6.0.2
-    firebase-admin: ^10.0.0
-    source-map-support: ^0.5.20
-    ts-node: ^10.3.0
-    typescript: ^4.4.4
-    uuid: ^8.3.2
-  languageName: unknown
-  linkType: soft
 
 "inherits@npm:^2.0.3":
   version: 2.0.4
@@ -1406,15 +1363,14 @@ __metadata:
   linkType: hard
 
 "light-my-request@npm:^4.2.0":
-  version: 4.5.0
-  resolution: "light-my-request@npm:4.5.0"
+  version: 4.6.0
+  resolution: "light-my-request@npm:4.6.0"
   dependencies:
     ajv: ^8.1.0
     cookie: ^0.4.0
     fastify-warning: ^0.2.0
-    readable-stream: ^3.6.0
     set-cookie-parser: ^2.4.1
-  checksum: e5dbef6f85d75e2f7a183116ddbc8af90e7fad913c77a44e2040e08de83c891ee8a2d235a2faddd2ccc3061d974a5fbb7d78f713d2d97d2ee36021a865785ecc
+  checksum: 5e367cec28be846f2cc77e0ae9d18cc3bc1076e321b639603ac773b9bb940964f1ce7d3169490c18ab186674130ae581933e86c5b34a639cc11c7b29e99c05da
   languageName: node
   linkType: hard
 
@@ -1748,7 +1704,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"readable-stream@npm:^3.1.1, readable-stream@npm:^3.4.0, readable-stream@npm:^3.6.0":
+"readable-stream@npm:^3.1.1, readable-stream@npm:^3.4.0":
   version: 3.6.0
   resolution: "readable-stream@npm:3.6.0"
   dependencies:
@@ -1984,6 +1940,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tasks@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "tasks@workspace:."
+  dependencies:
+    "@google-cloud/firestore": ^4.15.1
+    "@google-cloud/pubsub": ^2.18.1
+    "@tsconfig/node16": ^1.0.2
+    "@types/node": ^16.11.0
+    dotenv: ^10.0.0
+    fastify: ^3.22.0
+    fastify-cors: ^6.0.2
+    firebase-admin: ^10.0.0
+    source-map-support: ^0.5.20
+    ts-node: ^10.3.0
+    typescript: ^4.4.4
+  languageName: unknown
+  linkType: soft
+
 "teeny-request@npm:^7.0.0":
   version: 7.1.3
   resolution: "teeny-request@npm:7.1.3"
@@ -2108,7 +2082,7 @@ typescript@^4.4.4:
   languageName: node
   linkType: hard
 
-"uuid@npm:^8.0.0, uuid@npm:^8.3.2":
+"uuid@npm:^8.0.0":
   version: 8.3.2
   resolution: "uuid@npm:8.3.2"
   bin:

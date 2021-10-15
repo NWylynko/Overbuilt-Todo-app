@@ -1,73 +1,80 @@
 import React, { useState, useEffect } from 'react';
 import { signInWithGoogle, auth } from './firebase';
 import { getIdToken, User, onAuthStateChanged } from "firebase/auth" 
-import Axios from "axios";
-
-const axios = Axios.create({
-  baseURL: "http://localhost:4000"
-})
+import { useData } from "./context"
+import { axiosIngress } from "./axios"
 
 function App() {
+  const [title, setTitle] = useState<string>("");
+  const { user, tasks, setTasks, loading } = useData();
 
-  const [user, setUser] = useState<User | null>(null);
-  const [jwt, setJWT] = useState<string | null>(null);
-  const [notifications, setNotifications] = useState<any[]>([]);
-  const [message, setMessage] = useState<string>("");
-
-  useEffect(() => {
-    const sub = onAuthStateChanged(auth, async (user) => {
-      if (!user) {
-        return;
-      }
-
-      const jwt = await getIdToken(user);
-      setUser(user);
-      setJWT(jwt);
-    })
-    return sub
-  }, [])
-
-  useEffect(() => {
-    let websocket: WebSocket;
-    if (user && jwt) {
-      console.log("connecting to websocket");
-      websocket = new WebSocket(`ws://localhost:8080/?jwt=${jwt}`);
-      websocket.onopen = () => {
-        console.log("connected to websocket");
-      }
-      websocket.onmessage = (event) => {
-        const message = {...JSON.parse(event.data.toString()), received: new Date()};
-        console.log(message);
-        setNotifications(s => [...s, message])
-      }
-      websocket.onclose = () => {
-        console.log("disconnected from websocket");
-      }
-    }
-    return (() => {
-      if (websocket) { websocket.close(); }
-    })
-  }, [user, jwt]);
-
-  const submitMessage = (e: any) => {
+  const submitMessage = async (e: any) => {
     e.preventDefault();
-    console.log(message)
-    axios.post("/", { sent: new Date(), message })
+
+    // creating the id client side is risky as it opens up the services to vulnerability
+    // so we use the server side to generate the id, this does add a delay, but react complains
+    // a lot if we add an item to the tasks list without an id
+    // and while we could have it like "0", trying to find it in the list is a lot of work
+    // this endpoint is only creating the id, and adding the new task to the pubsub queue
+    // both functions that take very little time, so it should be fine
+    const { data: newTask } = await axiosIngress.post("/task/create", { title })
+    setTasks(tasks => [...tasks, newTask])
+  }
+
+  if (loading) {
+    return <div><span>Loading...</span></div>
+  }
+
+  if (!user) {
+    return (
+      <div>
+        <button onClick={signInWithGoogle}>Sign in with google</button>
+      </div>
+    )
   }
 
   return (
     <div>
-      {/* {jwt && <pre>{jwt}</pre>} */}
-      {/* {user && <pre>{JSON.stringify(user, null, 2)}</pre>} */}
-      {!user && <button onClick={signInWithGoogle}>Sign in with google</button>}
       <form onSubmit={submitMessage}>
-        <input value={message} onChange={(e) => setMessage(e.target.value)} />
+        <label>Add Task</label>
+        <input value={title} onChange={(e) => setTitle(e.target.value)} required/>
         <button>Submit</button>
       </form>
-      <h2>Notifications</h2>
-      {notifications.map(n => <pre>{JSON.stringify(n)}</pre>)}
+      {tasks.map(task => <Task key={task.id} {...task} />)}
     </div>
   );
+}
+
+interface TaskProps {
+  id: string;
+  title: string;
+  completed: boolean;
+}
+
+const Task = ({ id, title, completed }: TaskProps) => {
+  
+  const { setTasks } = useData();
+
+  const toggle = () => {
+    console.log(`toggle ${id} to ${!completed}`)
+
+    const state = !completed;
+
+    setTasks(tasks => tasks.map(task => {
+      if (task.id === id) {
+        task.completed = state;
+      }
+      return task;
+    }))
+    axiosIngress.patch("/task/update", { id, completed: state })
+  }
+  
+  return (
+    <div>
+      <input type="checkbox" checked={completed} onChange={toggle} />
+      <span>{title}</span>
+    </div>
+  )
 }
 
 export default App;

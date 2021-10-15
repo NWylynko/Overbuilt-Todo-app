@@ -18,11 +18,6 @@ const port = 8080;
 
 const app = WebSocket.App()
 
-// app.publish("notifications", JSON.stringify({
-//   type: "info",
-//   message: "Server started"
-// }))
-
 app.ws('/*', {
 
   upgrade: (res, req, context) => {
@@ -71,9 +66,7 @@ app.ws('/*', {
 
   open: (ws) => {
     console.log(ws.user.user_id, 'Connection open')
-    ws.subscribe("notifications")
-    ws.send(JSON.stringify({ hello: ` ${ws.user.name} from the server` }))
-    ws.send(JSON.stringify(ws.user))
+    ws.subscribe(ws.user.user_id)
   },
 
   message: (ws, message, isBinary) => {
@@ -100,13 +93,14 @@ app.listen(port, (token) => {
 
 
 (async () => {
-  const subscription = pubsub.subscription("notifications-sub");
+  const subscription = pubsub.subscription("websockets");
 
   // Receive callbacks for new messages on the subscription
   subscription.on('message', message => {
-    const event = message.data.toString()
+    const eventString = message.data.toString()
+    const event = JSON.parse(eventString)
     console.log('Received message:', event);
-    app.publish("notifications", event);
+    app.publish(event.userId, eventString);
     message.ack();
   });
 

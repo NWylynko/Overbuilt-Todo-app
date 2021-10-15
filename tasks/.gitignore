@@ -117,5 +117,4 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-PubSubServiceAccountKey.json
-src/serviceAccountKey.json
+serviceAccountKey.json
