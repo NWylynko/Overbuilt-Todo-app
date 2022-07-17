@@ -8,6 +8,8 @@ function App() {
   const [title, setTitle] = useState<string>("");
   const { user, tasks, setTasks, loading } = useData();
 
+  console.log({ tasks })
+
   const submitMessage = async (e: any) => {
     e.preventDefault();
 
@@ -33,6 +35,8 @@ function App() {
     )
   }
 
+  const sortedTasks = tasks
+
   return (
     <div>
       <form onSubmit={submitMessage}>
@@ -40,7 +44,7 @@ function App() {
         <input value={title} onChange={(e) => setTitle(e.target.value)} required/>
         <button>Submit</button>
       </form>
-      {tasks.map(task => <Task key={task.id} {...task} />)}
+      {sortedTasks.map(task => <Task key={task.id} {...task} />)}
     </div>
   );
 }
@@ -71,8 +75,8 @@ const Task = ({ id, title, completed }: TaskProps) => {
   
   return (
     <div>
-      <input type="checkbox" checked={completed} onChange={toggle} />
-      <span>{title}</span>
+      <input id={`id_${id}`} type="checkbox" checked={completed} onChange={toggle} />
+      <label htmlFor={`id_${id}`} >{title}</label>
     </div>
   )
 }

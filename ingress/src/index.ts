@@ -28,7 +28,12 @@ interface Task extends NewTask {
 app.post("/task/create", auth(async (req, res, user) => {
   const task = req.body as NewTask;
   const id = uuid();
-  const data = { ...task, id, completed: false, userId: user.uid };
+  const data = { 
+    ...task, 
+    id, 
+    completed: false, 
+    userId: user.uid
+  };
 
   // here I am specifically choosing to not await the publish
   // because I want to be able to return the task id as fast as possible

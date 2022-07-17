@@ -4,8 +4,10 @@ import { newEvent } from "./newEvent"
 import { task } from "../database/task"
 
 export const updateTask = async (event: Event<Task>) => {
-  console.log("updating task")
-  await task.update(event.data);
-  await newEvent(event)
-  return;
+  try {
+    console.log("updating task")
+    return task.update(event.data);
+  } catch (error) {
+    newEvent("")
+  }
 }

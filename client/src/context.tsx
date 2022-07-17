@@ -70,8 +70,26 @@ export const Provider = ({ children }: { children: JSX.Element[] }) => {
       }
       websocket.onmessage = (message) => {
         const event = JSON.parse(message.data.toString());
-        const newTask = event.data;
-        setTasks(tasks => unionBy(tasks, [newTask], "id"))
+        
+        if (event.event === "createTask") {
+          setTasks(tasks => {
+
+            const newTask = event.data;
+  
+            return unionBy([newTask], tasks, "id");
+          })
+        } else if (event.event === "updateTask") {
+          setTasks(tasks => {
+
+            const newTask = event.data;
+            const oldTask = tasks.find(task => task.id === newTask.id);
+            const updatedTask = { ...oldTask, ...newTask };
+  
+            return unionBy([updatedTask], tasks, "id");
+          })
+        } else if (event.event === "deleteTask") {
+
+        }
       }
       websocket.onclose = () => {
         console.log("disconnected from websocket");
